@@ -18,7 +18,13 @@ class TimerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         var countdown = intent?.getIntExtra(COUNTDOWN_KEY, 0) ?: 0
-
+        CoroutineScope(Dispatchers.Main).launch {
+            while(countdown >= 0) {
+                Log.d("countdownservice", "$countdown")
+                delay(1000)
+                countdown--
+            }
+        }
         return super.onStartCommand(intent, flags, startId)
     }
 
